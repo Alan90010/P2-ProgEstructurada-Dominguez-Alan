@@ -204,3 +204,58 @@ if __name__ == "__main__":
         print("  Entrenamiento completado con éxito.")
         print("=" * 52)
 
+# ==========================================
+# 5. Cuestionario
+# ==========================================
+
+"""
+Uso de Objetos y Métodos: En tu código, al usar datetime.datetime.now(),
+¿cuál es el objeto/clase y cuál es el método que estás llamando? Explica
+cómo se relaciona esto con el concepto de biblioteca externa
+
+En datetime.datetime.now(), datetime (la clase) es el objeto y .now() es el método
+La biblioteca es el módulo externo: 
+solo se importa para usar sus clases y métodos sin escribirlos desde cero
+
+
+
+Diferenciación Técnica: ¿Qué diferencia existe en la sintaxis de tu código
+al importar un módulo completo (ej: import math) versus importar un método
+específico (ej: from math import sqrt) al momento de invocar sus funciones?
+
+Con import math se usa el prefijo en cada llamada: math.sqrt() 
+Con from math import sqrt la función llega directo al código y la llamas solo como sqrt(). 
+La direncia solo es el uso del prefijo
+
+
+
+Flujo y Lógica: Describe brevemente la secuencia lógica de pasos que
+implementaste para conectar los datos generados por tu función de
+simulación con la función que calcula el error (RMSE).
+
+simular_metricas_entrenamiento() genera y regresa lista_loss y lista_latencia 
+Esas listas se pasan a analizar_rendimiento() para obtener la media_loss
+Luego se generan dos listas nuevas con random.uniform() y se pasan a calcular_rmse()
+El programa principal usa media_loss para la evaluación crítica
+
+
+
+Mapeo de Tipos de Datos: Identifica al menos dos tipos de datos
+complejos (colecciones) que utilizaste para organizar los resultados de tus
+análisis y justifica por qué elegiste esa estructura en lugar de variables
+simples.
+
+Se usan dos listas: lista_loss y lista_latencia
+Se usan listas en lugar de variables simples porque una variable simple solo 
+guarda un valor y cada epoch lo sobreescribiría
+La lista conserva todos los valores del proceso
+
+
+
+Autoevaluación de Abstracción: Al utilizar las funciones de la biblioteca
+statistics, ¿tuviste que programar la fórmula matemática matemática de la
+desviación estándar? Relaciona esto con el concepto de Abstracción visto
+en clase.
+
+No fue necesario ya que la biblioteca hace todo el trabajo
+"""
