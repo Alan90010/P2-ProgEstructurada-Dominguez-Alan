@@ -129,3 +129,78 @@ def analizar_rendimiento(lista_loss, lista_latencia):
  
     return media_loss
  
+def calcular_rmse(predicciones, reales):
+    """
+    Usa la biblioteca 'math' para calcular el Root Mean Squared Error (RMSE).
+    Requisitos: 3 llamadas distintas a la biblioteca 'math'.
+    """
+
+    print("\n--- CÁLCULO DE RMSE ---")
+ 
+    n = len(predicciones)
+    suma_cuadrados = 0
+ 
+    for i in range(n):
+        diferencia = predicciones[i] - reales[i]
+ 
+        # 1: pow() eleva la diferencia al cuadrado
+        cuadrado = math.pow(diferencia, 2)
+        suma_cuadrados = suma_cuadrados + cuadrado
+ 
+    promedio_cuadrados = suma_cuadrados / n
+ 
+    # 2: sqrt() raíz cuadrada del promedio (RMSE)
+    rmse = math.sqrt(promedio_cuadrados)
+ 
+    #  3: fabs() valor absoluto del RMSE 
+    rmse_absoluto = math.fabs(rmse)
+ 
+    # Calcular cantidad de epochs adicionales recomendados con ceil
+    epochs_recomendados = math.ceil(rmse_absoluto * 10)
+ 
+    print(f"  RMSE calculado: {rmse_absoluto:.4f}")
+    print(f"  Epochs adicionales rec.: {epochs_recomendados}")
+ 
+    return rmse_absoluto
+ 
+ 
+# ==========================================
+# 4. PROGRAMA PRINCIPAL (PUNTO DE ENTRADA)
+# ==========================================
+
+if __name__ == "__main__":
+    print("=" * 52)
+    print("   INICIANDO SIMULADOR DE AGENTES DE IA")
+    print("=" * 52)
+    
+    # Validar entorno del sistema
+    obtener_info_sistema()
+    
+    # Simulador 
+    print("--- SIMULACIÓN DE ENTRENAMIENTO ---")
+    lista_loss, lista_latencia = simular_metricas_entrenamiento(MAX_EPOCHS)
+    
+    # Rendimiento con statistics
+    media_loss = analizar_rendimiento(lista_loss, lista_latencia)
+    
+    # Calcular RMSE simulados de predicción y reales
+    predicciones = [random.uniform(0.1, 0.9) for _ in range(MAX_EPOCHS)]
+    reales       = [random.uniform(0.1, 0.9) for _ in range(MAX_EPOCHS)]
+    rmse = calcular_rmse(predicciones, reales)
+    
+    # Verificar si las métricas son críticas y actuar en consecuencia
+    print("\n--- EVALUACIÓN FINAL ---")
+    print(f"  Media de loss           : {media_loss:.4f}")
+    print(f"  Umbral crítico          : {UMBRAL_ERROR_CRITICO}")
+    
+    if media_loss >= UMBRAL_ERROR_CRITICO:
+        print("\n  [CRÍTICO] La media de loss supera el umbral permitido.")
+        print("  El proceso de entrenamiento se detendrá de forma segura.")
+        print("=" * 52)
+        # Llamada sys.exit(): forzar salida limpia cuando las métricas son críticas
+        sys.exit(1)
+    else:
+        print("\n Métricas dentro del rango aceptable.")
+        print("  Entrenamiento completado con éxito.")
+        print("=" * 52)
+
