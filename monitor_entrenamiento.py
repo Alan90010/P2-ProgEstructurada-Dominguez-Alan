@@ -106,3 +106,26 @@ def simular_metricas_entrenamiento(cantidad_epochs):
  
     return lista_loss, lista_latencia
 
+def analizar_rendimiento(lista_loss, lista_latencia):
+
+    """
+    Usa la biblioteca 'statistics' para analizar el comportamiento del entrenamiento.
+    Requisitos: 3 llamadas distintas a la biblioteca 'statistics'.
+    """
+
+    print("\n--- ANÁLISIS DE RENDIMIENTO ---")
+ 
+    # 1: calcula la media de los valores de pérdida
+    media_loss = statistics.mean(lista_loss)
+    print(f"  Media de loss: {media_loss:.4f}")
+ 
+    # 2: calcula la desviación estándar para medir estabilidad
+    desviacion_loss = statistics.stdev(lista_loss)
+    print(f"  Desviación estándar: {desviacion_loss:.4f}")
+ 
+    # 3: calcula la mediana de la latencia del proceso
+    mediana_latencia = statistics.median(lista_latencia)
+    print(f"  Mediana de latencia: {mediana_latencia:.2f} ms")
+ 
+    return media_loss
+ 
